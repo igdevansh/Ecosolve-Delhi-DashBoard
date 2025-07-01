@@ -1,11 +1,13 @@
 import { ResponsiveLine } from "@nivo/line";
-import { useTheme } from "@mui/material";
+import { useTheme, useMediaQuery } from "@mui/material";
 import { tokens } from "../theme/theme";
 import { mockLineData as data } from "../data/mockData";
 
 const LineChart = ({ isDashboard = false }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const isMobile = useMediaQuery('(max-width:768px)');
+  const isTablet = useMediaQuery('(max-width:1024px)');
 
   return (
     <ResponsiveLine
@@ -16,22 +18,35 @@ const LineChart = ({ isDashboard = false }) => {
           legend: { text: { fill: colors.grey[700] } },
           ticks: { 
             line: { stroke: colors.grey[100], strokeWidth: 1 }, 
-            text: { fill: colors.grey[600], fontSize: 11 } 
+            text: { 
+              fill: colors.grey[600], 
+              fontSize: isMobile ? 9 : 11 
+            } 
           },
         },
-        legends: { text: { fill: colors.grey[700], fontSize: 12 } },
+        legends: { 
+          text: { 
+            fill: colors.grey[700], 
+            fontSize: isMobile ? 10 : 12 
+          } 
+        },
         grid: {
           line: { stroke: colors.grey[300], strokeWidth: 1 },
         },
         tooltip: {
           container: {
             color: colors.primary[500],
-            fontSize: 12,
+            fontSize: isMobile ? 10 : 12,
           },
         },
       }}
       colors={{ datum: 'color' }}
-      margin={{ top: 50, right: 50, bottom: 80, left: 60 }} // Reduced bottom margin
+      margin={{ 
+        top: isMobile ? 30 : 50, 
+        right: isMobile ? 30 : 50, 
+        bottom: isMobile ? 60 : 80, 
+        left: isMobile ? 40 : 60 
+      }}
       xScale={{ type: "point" }}
       yScale={{ 
         type: "linear", 
@@ -48,7 +63,7 @@ const LineChart = ({ isDashboard = false }) => {
         orient: "bottom",
         tickSize: 5,
         tickPadding: 5,
-        tickRotation: 0,
+        tickRotation: isMobile ? -45 : 0,
         legend: isDashboard ? undefined : "Month",
         legendOffset: 36,
         legendPosition: "middle",
@@ -65,8 +80,8 @@ const LineChart = ({ isDashboard = false }) => {
       enableGridX={false}
       enableGridY={true}
       gridYValues={[0, 30, 60, 90, 120]}
-      lineWidth={3}
-      pointSize={8}
+      lineWidth={isMobile ? 2 : 3}
+      pointSize={isMobile ? 6 : 8}
       pointColor={{ theme: "background" }}
       pointBorderWidth={2}
       pointBorderColor={{ from: "serieColor" }}
@@ -74,17 +89,17 @@ const LineChart = ({ isDashboard = false }) => {
       useMesh={true}
       legends={[
         {
-          anchor: "bottom-right", // Changed from "bottom" to "bottom-right"
-          direction: "column", // Changed from "row" to "column" 
+          anchor: isMobile ? "top" : "bottom-right",
+          direction: isMobile ? "row" : "column",
           justify: false,
-          translateX: -10, // Move legend inside the chart area
-          translateY: -20, // Move legend up inside the chart
-          itemsSpacing: 4, // Reduced spacing between legend items
+          translateX: isMobile ? 0 : -10,
+          translateY: isMobile ? -10 : -20,
+          itemsSpacing: isMobile ? 10 : 4,
           itemDirection: "left-to-right",
-          itemWidth: 120,
-          itemHeight: 16, // Reduced height
+          itemWidth: isMobile ? 80 : 120,
+          itemHeight: isMobile ? 14 : 16,
           itemOpacity: 0.85,
-          symbolSize: 10, // Smaller symbol
+          symbolSize: isMobile ? 8 : 10,
           symbolShape: "circle",
           symbolBorderColor: "rgba(0, 0, 0, .5)",
           effects: [

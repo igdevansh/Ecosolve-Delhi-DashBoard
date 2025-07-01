@@ -1,4 +1,5 @@
-import { Box, IconButton, Typography, useTheme } from "@mui/material";
+import React, { useState, useEffect } from "react";
+import { Box, IconButton, Typography, useTheme, Drawer, useMediaQuery } from "@mui/material";
 import { Sidebar, Menu, MenuItem } from "react-pro-sidebar";
 import { Link, useLocation } from "react-router-dom";
 import { tokens } from "../../theme/theme";
@@ -7,9 +8,8 @@ import LightbulbOutlined from '@mui/icons-material/LightbulbOutlined';
 import MapOutlined from '@mui/icons-material/MapOutlined';
 import MenuOutlined from '@mui/icons-material/MenuOutlined';
 import EnergySavingsLeaf from '@mui/icons-material/EnergySavingsLeaf';
-import React from "react";
 
-const Item = ({ title, to, icon, selected, setSelected }) => {
+const Item = ({ title, to, icon, selected, setSelected, onClick }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const location = useLocation();
@@ -22,7 +22,10 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
         color: isActive ? colors.greenAccent[500] : colors.grey[700],
         backgroundColor: isActive ? "rgba(76, 206, 172, 0.1)" : "transparent"
       }}
-      onClick={() => setSelected(title)}
+      onClick={() => {
+        setSelected(title);
+        onClick && onClick();
+      }}
       icon={icon}
       component={<Link to={to} />}
     >
@@ -31,12 +34,11 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
   );
 };
 
-const SidebarComponent = ({ isCollapsed, setIsCollapsed }) => {
+const SidebarComponent = ({ isCollapsed, setIsCollapsed, isMobile }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const location = useLocation();
 
-  // Set initial selected based on current route
   const getSelectedFromPath = (pathname) => {
     switch(pathname) {
       case '/': return 'Dashboard';
@@ -46,18 +48,25 @@ const SidebarComponent = ({ isCollapsed, setIsCollapsed }) => {
     }
   };
 
-  const [selected, setSelected] = React.useState(getSelectedFromPath(location.pathname));
+  const [selected, setSelected] = useState(getSelectedFromPath(location.pathname));
 
-  React.useEffect(() => {
+  useEffect(() => {
     setSelected(getSelectedFromPath(location.pathname));
   }, [location.pathname]);
 
-  return (
+  const handleMenuItemClick = () => {
+    if (isMobile) {
+      setIsCollapsed(true);
+    }
+  };
+
+  const sidebarContent = (
     <Box
       sx={{
         "& .ps-sidebar-container": {
           background: `${colors.background.default} !important`,
           borderRight: "1px solid #e0e0e0",
+          height: "100vh",
         },
         "& .ps-menu-button": {
           padding: "8px 24px !important",
@@ -73,18 +82,17 @@ const SidebarComponent = ({ isCollapsed, setIsCollapsed }) => {
         },
       }}
     >
-      <Sidebar collapsed={isCollapsed} width="280px">
+      <Sidebar collapsed={isCollapsed && !isMobile} width={isMobile ? "280px" : "280px"}>
         <Menu iconShape="square">
-          {/* LOGO AND MENU TOGGLE */}
           <MenuItem
             onClick={() => setIsCollapsed(!isCollapsed)}
-            icon={isCollapsed ? <MenuOutlined /> : undefined}
+            icon={isCollapsed && !isMobile ? <MenuOutlined /> : undefined}
             style={{
               margin: "10px 0 20px 0",
               color: colors.grey[100],
             }}
           >
-            {!isCollapsed && (
+            {(!isCollapsed || isMobile) && (
               <Box
                 display="flex"
                 justifyContent="space-between"
@@ -102,21 +110,23 @@ const SidebarComponent = ({ isCollapsed, setIsCollapsed }) => {
                     EcoSolve
                   </Typography>
                 </Box>
-                <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
-                  <MenuOutlined />
-                </IconButton>
+                {!isMobile && (
+                  <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
+                    <MenuOutlined />
+                  </IconButton>
+                )}
               </Box>
             )}
           </MenuItem>
 
-          {/* MENU ITEMS */}
-          <Box paddingLeft={isCollapsed ? undefined : "5%"}>
+          <Box paddingLeft={(isCollapsed && !isMobile) ? undefined : "5%"}>
             <Item
               title="Dashboard"
               to="/"
               icon={<GridViewOutlined />}
               selected={selected}
               setSelected={setSelected}
+              onClick={handleMenuItemClick}
             />
             <Item
               title="Material Suggestion"
@@ -124,6 +134,7 @@ const SidebarComponent = ({ isCollapsed, setIsCollapsed }) => {
               icon={<LightbulbOutlined />}
               selected={selected}
               setSelected={setSelected}
+              onClick={handleMenuItemClick}
             />
             <Item
               title="Local Resources"
@@ -131,12 +142,38 @@ const SidebarComponent = ({ isCollapsed, setIsCollapsed }) => {
               icon={<MapOutlined />}
               selected={selected}
               setSelected={setSelected}
+              onClick={handleMenuItemClick}
             />
           </Box>
         </Menu>
       </Sidebar>
     </Box>
   );
+
+  if (isMobile) {
+    return (
+      <Drawer
+        variant="temporary"
+        open={!isCollapsed}
+        onClose={() => setIsCollapsed(true)}
+        ModalProps={{
+          keepMounted: true,
+        }}
+        sx={{
+          display: { xs: 'block', md: 'none' },
+          '& .MuiDrawer-paper': { 
+            boxSizing: 'border-box', 
+            width: 280,
+            border: 'none'
+          },
+        }}
+      >
+        {sidebarContent}
+      </Drawer>
+    );
+  }
+
+  return sidebarContent;
 };
 
 export default SidebarComponent;

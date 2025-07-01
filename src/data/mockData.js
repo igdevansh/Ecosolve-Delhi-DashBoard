@@ -1,3 +1,6 @@
+// src/data/mockData.js
+
+// Data for the "Delhi: Plastic Waste by Type" Pie Chart
 export const mockPieData = [
   {
     id: "PET",
@@ -31,6 +34,7 @@ export const mockPieData = [
   },
 ];
 
+// Data for the "Delhi: Waste Reduction Progress" Line Chart
 export const mockLineData = [
   {
     id: "Plastic Saved (kg)",
@@ -58,6 +62,7 @@ export const mockLineData = [
   },
 ];
 
+// Data for the "Local Eco-Resources" Page
 export const mockResources = [
   {
     name: "Goonj Dropping Centre – Mayur Vihar Phase 2",
@@ -65,25 +70,61 @@ export const mockResources = [
     description: "Accepts clothes, paper, and household materials for reuse and recycling.",
     address: "277, Pocket C, Mayur Vihar Phase 2, Delhi 110091",
     hours: "Mon-Sat: 11 AM–4 PM; Sun: 8 AM–11 AM",
-    phone: "011-4142-0042",
+    phone: null,
     website: null,
   },
   {
-    name: "JAAGRUTI – Waste Paper Recycling Services",
-    type: "Recycling Center", 
-    description: "Offers waste paper recycling services for organizations and individuals. Email: paper@we-recycle.org.",
-    address: "Contact for address",
-    hours: null,
-    phone: "011-2613-5246",
-    website: "http://we-recycle.org/",
+    name: "Chintan Environment Research & Action Group – Khan Market",
+    type: "Recycling Center",
+    description: "Accepts e-waste, old clothes, books, and dry recyclables. Supports waste-picker welfare.",
+    address: "Near Air Force Bal Bharati School, Lodhi Road, Khan Market, New Delhi – 110003",
+    hours: "Mon–Sat: 10 AM–5 PM; Closed Sundays",
+    phone: null,
+    website: null,
   },
   {
-    name: "Pom Pom",
-    type: "Recycling Center",
-    description: "A social enterprise that helps you recycle your dry waste at your doorstep, providing monetary value in return.",
-    address: "Serves various locations in Delhi NCR",
-    hours: "Service available via app booking",
-    phone: "+91-8882-333-888",
-    website: "https://pompom.in/",
+    name: "Mundka Plastic Recycling Hub – Mundka",
+    type: "Recycling Cluster",
+    description: "Handles large-scale plastic sorting and recycling. Best for bulk or NGO-level drop-offs.",
+    address: "Mundka Industrial Area, Delhi – 110041",
+    hours: "Mon–Sat: 9 AM–6 PM; Closed Sundays",
+    phone: null,
+    website: null,
+  },
+  {
+    name: "Adrish Zero-Waste Store – Shahpur Jat",
+    type: "Eco-Friendly Shop",
+    description: "Plastic-free and organic lifestyle store: groceries, wellness, home, and refill station.",
+    address: "86-A, Shahpur Jat, New Delhi – 110049",
+    hours: "Mon–Sun: 11 AM–8 PM",
+    phone: null,
+    website: null,
+  },
+  {
+    name: "Green The Map – Sarvodaya Enclave",
+    type: "Eco Boutique & Recycling Design Studio",
+    description: "Upcycled bags, accessories, and sustainable products made by local communities.",
+    address: "A-60, Sarvodaya Enclave, New Delhi – 110017",
+    hours: "Mon–Sat: 10 AM–6 PM",
+    phone: null,
+    website: null,
+  },
+  {
+    name: "Delhi Greens NGO – Community & Environment Program",
+    type: "Community & Environment Program",
+    description: "Promotes environmental awareness, tree plantation, campaigns, and school outreach.",
+    address: "42, 2nd Floor, Hasanpur, I.P. Extension, Delhi – 110092",
+    hours: "Mon–Fri: 10 AM–5 PM",
+    phone: null,
+    website: null,
+  },
+  {
+    name: "Swechha India – Vasant Kunj",
+    type: "Sustainability NGO",
+    description: "Sustainability NGO working with youth on river cleanups, eco-walks, and green workshops.",
+    address: "A-200, Street No. 7, Mahipalpur Ext., Near Vasant Kunj, Delhi – 110037",
+    hours: "Mon–Fri: 10 AM–6 PM",
+    phone: null,
+    website: null,
   },
 ];

@@ -2,39 +2,47 @@ import { Box, IconButton, useTheme } from "@mui/material";
 import { tokens } from "../../theme/theme";
 import MenuOutlined from '@mui/icons-material/MenuOutlined';
 
-const Topbar = ({ isSidebarCollapsed, toggleSidebar }) => {
+const Topbar = ({ isSidebarCollapsed, toggleSidebar, isMobile }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
   return (
-    <Box display="flex" justifyContent="flex-start" alignItems="center" p={2}>
-      {/* Hamburger menu positioned at the orange marked location */}
-      {isSidebarCollapsed && (
-        <Box 
-          position="absolute" 
-          top="20px" 
-          left="20px" 
-          zIndex={1000}
-        >
+    <Box 
+      display="flex" 
+      justifyContent="space-between" 
+      alignItems="center" 
+      p={isMobile ? "10px 15px" : "15px 20px"}
+      sx={{ 
+        position: 'relative',
+        minHeight: '60px'
+      }}
+    >
+      {/* Hamburger menu for mobile or when sidebar is collapsed */}
+      {(isMobile || isSidebarCollapsed) && (
+        <Box>
           <IconButton 
             onClick={toggleSidebar}
             sx={{ 
               backgroundColor: colors.primary[400],
               borderRadius: "8px",
-              padding: "8px",
+              padding: isMobile ? "6px" : "8px",
               boxShadow: "0px 2px 8px rgba(0, 0, 0, 0.1)",
               '&:hover': {
                 backgroundColor: colors.grey[200]
               }
             }}
           >
-            <MenuOutlined sx={{ color: colors.grey[700], fontSize: "20px" }} />
+            <MenuOutlined sx={{ 
+              color: colors.grey[700], 
+              fontSize: isMobile ? "18px" : "20px" 
+            }} />
           </IconButton>
         </Box>
       )}
       
-      {/* Right side space for future icons */}
-      <Box display="flex" marginLeft="auto">
+      {!isMobile && !isSidebarCollapsed && <Box />}
+      
+      <Box display="flex">
         {/* Future: Add notification, settings, profile icons here */}
       </Box>
     </Box>

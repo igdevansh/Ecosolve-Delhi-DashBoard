@@ -1,36 +1,60 @@
 @import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap");
 
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 html,
 body,
-#root,
-.app,
-.content {
+#root {
   height: 100%;
   width: 100%;
   font-family: "Source Sans Pro", sans-serif;
-  margin: 0;
-  padding: 0;
+  overflow-x: hidden;
 }
 
 body {
   background-color: #e8f5e8;
-  overflow-x: hidden;
 }
 
 .app {
   display: flex;
   position: relative;
   min-height: 100vh;
+  width: 100%;
 }
 
 .content {
   flex-grow: 1;
-  padding: 0;
+  width: 100%;
   overflow-x: hidden;
+  transition: margin-left 0.3s ease;
 }
 
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .app {
+    flex-direction: column;
+  }
+  
+  .content {
+    margin-left: 0 !important;
+    width: 100%;
+  }
+}
+
+/* Tablet responsiveness */
+@media (max-width: 1024px) and (min-width: 769px) {
+  .content {
+    padding: 0 10px;
+  }
+}
+
+/* Scrollbar styling */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
 }
 
 ::-webkit-scrollbar-track {
@@ -39,13 +63,18 @@ body {
 
 ::-webkit-scrollbar-thumb {
   background: #c1c1c1;
-  border-radius: 4px;
+  border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
   background: #a8a8a8;
 }
 
-* {
-  box-sizing: border-box;
+/* Responsive typography */
+@media (max-width: 480px) {
+  h1 { font-size: 24px !important; }
+  h2 { font-size: 20px !important; }
+  h3 { font-size: 18px !important; }
+  h4 { font-size: 16px !important; }
+  h5 { font-size: 14px !important; }
 }
