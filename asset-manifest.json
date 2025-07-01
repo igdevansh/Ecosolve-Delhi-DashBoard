@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/Ecosolve-Delhi-DashBoard/static/css/main.94823ed3.css",
+    "main.js": "/Ecosolve-Delhi-DashBoard/static/js/main.3230da17.js",
+    "index.html": "/Ecosolve-Delhi-DashBoard/index.html",
+    "main.94823ed3.css.map": "/Ecosolve-Delhi-DashBoard/static/css/main.94823ed3.css.map",
+    "main.3230da17.js.map": "/Ecosolve-Delhi-DashBoard/static/js/main.3230da17.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.94823ed3.css",
+    "static/js/main.3230da17.js"
+  ]
+}
